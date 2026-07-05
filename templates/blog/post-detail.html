@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+{% block content %}
+<h2>{{ post.title }}</h2>
+{% rowcol %}
+    {% include "blog/post-byline.html" %}
+{% endrowcol %}
+{% rowcol %}
+    {{ post.content }}
+{% endrowcol %}
+<hr/>
+{% rowcol %}
+{% recent_posts post %}
+{% endrowcol %}
+{% endblock content %}

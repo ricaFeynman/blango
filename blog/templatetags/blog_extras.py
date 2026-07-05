@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
-user_model = get_user_model()
-
 from django import template
-register = template.Library()
-
 from django.utils.html import format_html
+from blog.models import Post
+
+user_model = get_user_model()
+register = template.Library()
 
 @register.filter
 def author_details(author, current_user=None):
@@ -23,3 +23,22 @@ def author_details(author, current_user=None):
         details = format_html('<a href="mailto:{}">{}</a>', author.email, details)
     
     return details
+
+@register.simple_tag
+def rowcol(extra_classes=""):
+    return format_html('<div class="row {}"><div class="col">', extra_classes)
+
+@register.simple_tag
+def endrowcol():
+    return format_html('</div></div>', kwargs=[])
+
+@register.simple_tag(takes_context=True)
+def author_details_tag(context):
+    request = context["request"]
+    post = context["post"]
+    return(author_details(post.author, request.user))
+
+@register.inclusion_tag("blog/post-list.html")
+def recent_posts(post):
+    posts = Post.objects.exclude(pk=post.pk)[:5]
+    return {"title": "Recent Posts", 'posts': posts}
