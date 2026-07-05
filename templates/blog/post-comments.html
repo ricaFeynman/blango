@@ -1,0 +1,25 @@
+{% load blog_extras crispy_forms_tags %}
+<h4>Comments</h4>
+{% for comment in post.comments.all %}
+{% rowcol "border-top pt-2" %}
+<h5>Posted by {{ comment.creator }} at {{ comment.created_at|date:"M, d Y h:i" }}</h5>
+{% endrowcol %}
+{% rowcol "border-bottom" %}
+<p>{{ comment.content }}</p>
+{% endrowcol %}
+{% empty %}
+{% rowcol "border-top border-bottom" %}
+{% endrowcol %}
+{% endfor %}
+
+{% if request.user.is_active %}
+{% rowcol "mt-4" %}
+<h4>Add Comment</h4>
+{% crispy comment_form %}
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+    <p><button type="submit" class="btn btn-primary">Submit</button></p>
+</form> -->
+{% endrowcol %}
+{% endif %}

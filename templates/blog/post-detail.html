@@ -9,6 +9,8 @@
     {{ post.content }}
 {% endrowcol %}
 <hr/>
+{% include "blog/post-comments.html" %}
+<hr/>
 {% rowcol %}
 {% recent_posts post %}
 {% endrowcol %}
