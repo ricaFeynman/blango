@@ -8,6 +8,12 @@
 {% rowcol %}
     {{ post.content }}
 {% endrowcol %}
+{% if post.author.profile %}
+{% rowcol %}
+    <h4>About the author</h4>
+    <p>{{ post.author.profile.bio }}</p>
+{% endrowcol %}
+{% endif %}
 <hr/>
 {% include "blog/post-comments.html" %}
 <hr/>
