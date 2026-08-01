@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'drf_yasg',
 
     'blango_auth',
     'blog',
@@ -56,6 +58,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
     ],
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+        "Basic": {"type": "basic"},
+    }
 }
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
