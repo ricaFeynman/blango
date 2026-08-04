@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import CommentForm
 from django.utils import timezone
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -9,7 +10,9 @@ def index(request):
     return render(request, "blog/index.html", {'posts': posts})
 
 def post_table(request):
-    return render(request, "blog/post-table.html")
+    return render(request, "blog/post-table.html", {
+        "post_list_url": reverse("post-list"),
+    })
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
